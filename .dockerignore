@@ -1,0 +1,37 @@
+# Ignore build artifacts
+target/
+!target/pagination-*.jar
+
+# Ignore IDE files
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
+
+# Ignore logs
+*.log
+logs/
+
+# Ignore temporary files
+*.tmp
+*.temp
+*~
+
+# Ignore Docker files during build (to avoid copying into container)
+Dockerfile
+docker-compose.yml
+nginx.conf
+
+# Ignore git
+.git/
+.gitignore
+
+# Ignore documentation
+README.md
+main.md
+HELP.md

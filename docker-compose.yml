@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  pagination-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: pagination-api
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SERVER_PORT=8080
+      - EXTERNAL_API_DUMMYJSON_URL=https://dummyjson.com
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+    restart: unless-stopped
+    networks:
+      - pagination-network
+
+  nginx:
+    image: nginx:alpine
+    container_name: pagination-nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - pagination-api
+    restart: unless-stopped
+    networks:
+      - pagination-network
+
+networks:
+  pagination-network:
+    driver: bridge
+
+volumes:
+  pagination-data:
