@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: pagination-test
+  
+  # Disable caching for tests
+  cache:
+    type: none
+
+# Test server configuration
+server:
+  port: 0  # Random port for testing
+
+# External API configuration for tests
+external:
+  api:
+    dummyjson:
+      url: https://dummyjson.com
+
+# Test logging configuration
+logging:
+  level:
+    "[id.ruriazz.pagination]": DEBUG
+    "[org.springframework.cache]": DEBUG
+    root: WARN
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+
+# Disable Springdoc for tests
+springdoc:
+  api-docs:
+    enabled: false
+  swagger-ui:
+    enabled: false

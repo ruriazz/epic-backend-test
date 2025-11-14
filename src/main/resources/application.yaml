@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: pagination
+  
+  # Cache configuration
+  cache:
+    type: caffeine
+    caffeine:
+      spec: maximumSize=10,expireAfterWrite=10m
+    cache-names:
+      - users
+
+# Server configuration
+server:
+  port: 8080
+
+# External API configuration
+external:
+  api:
+    dummyjson:
+      url: https://dummyjson.com
+
+# Logging configuration
+logging:
+  level:
+    "[id.ruriazz.pagination]": INFO
+    "[org.springframework.cache]": DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+
+# Springdoc OpenAPI configuration
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    display-request-duration: true
+    groups-order: desc
+    operations-sorter: method
