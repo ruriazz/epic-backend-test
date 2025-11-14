@@ -23,7 +23,7 @@ public class DummyJsonClient {
 
     @Cacheable(value = "users", unless = "#result == null")
     public DummyJsonResponse fetchAllUsers() {
-        String url = baseUrl + "/users?limit=250";
+        String url = baseUrl + "/users?limit=100";
 
         try {
             log.info("Fetching users from external API: {}", url);

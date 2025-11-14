@@ -36,7 +36,7 @@ class DummyJsonClientTest {
     void fetchAllUsers_WithValidResponse_ShouldReturnUsers() {
         // Given
         DummyJsonResponse mockResponse = createMockResponse();
-        when(restTemplate.getForObject("https://dummyjson.com/users?limit=250", DummyJsonResponse.class))
+        when(restTemplate.getForObject("https://dummyjson.com/users?limit=100", DummyJsonResponse.class))
                 .thenReturn(mockResponse);
 
         // When
@@ -56,13 +56,13 @@ class DummyJsonClientTest {
         assertEquals("Johnson", user.getLastName());
         assertEquals("emily.johnson@example.com", user.getEmail());
 
-        verify(restTemplate, times(1)).getForObject("https://dummyjson.com/users?limit=250", DummyJsonResponse.class);
+        verify(restTemplate, times(1)).getForObject("https://dummyjson.com/users?limit=100", DummyJsonResponse.class);
     }
 
     @Test
     void fetchAllUsers_WithNetworkError_ShouldThrowRuntimeException() {
         // Given
-        when(restTemplate.getForObject("https://dummyjson.com/users?limit=250", DummyJsonResponse.class))
+        when(restTemplate.getForObject("https://dummyjson.com/users?limit=100", DummyJsonResponse.class))
                 .thenThrow(new ResourceAccessException("Connection timeout"));
 
         // When & Then
@@ -77,7 +77,7 @@ class DummyJsonClientTest {
     @Test
     void fetchAllUsers_WithServerError_ShouldThrowRuntimeException() {
         // Given
-        when(restTemplate.getForObject("https://dummyjson.com/users?limit=250", DummyJsonResponse.class))
+        when(restTemplate.getForObject("https://dummyjson.com/users?limit=100", DummyJsonResponse.class))
                 .thenThrow(new RestClientException("500 Internal Server Error"));
 
         // When & Then
@@ -92,7 +92,7 @@ class DummyJsonClientTest {
     @Test
     void fetchAllUsers_WithNullResponse_ShouldThrowRuntimeException() {
         // Given
-        when(restTemplate.getForObject("https://dummyjson.com/users?limit=250", DummyJsonResponse.class))
+        when(restTemplate.getForObject("https://dummyjson.com/users?limit=100", DummyJsonResponse.class))
                 .thenReturn(null);
 
         // When & Then
@@ -109,7 +109,7 @@ class DummyJsonClientTest {
         mockResponse.setUsers(null);
         mockResponse.setTotal(0);
 
-        when(restTemplate.getForObject("https://dummyjson.com/users?limit=250", DummyJsonResponse.class))
+        when(restTemplate.getForObject("https://dummyjson.com/users?limit=100", DummyJsonResponse.class))
                 .thenReturn(mockResponse);
 
         // When & Then
@@ -128,7 +128,7 @@ class DummyJsonClientTest {
         mockResponse.setSkip(0);
         mockResponse.setLimit(30);
 
-        when(restTemplate.getForObject("https://dummyjson.com/users?limit=250", DummyJsonResponse.class))
+        when(restTemplate.getForObject("https://dummyjson.com/users?limit=100", DummyJsonResponse.class))
                 .thenReturn(mockResponse);
 
         // When
@@ -144,7 +144,7 @@ class DummyJsonClientTest {
     @Test
     void fetchAllUsers_WithUnexpectedException_ShouldThrowRuntimeException() {
         // Given
-        when(restTemplate.getForObject("https://dummyjson.com/users?limit=250", DummyJsonResponse.class))
+        when(restTemplate.getForObject("https://dummyjson.com/users?limit=100", DummyJsonResponse.class))
                 .thenThrow(new RuntimeException("Unexpected error"));
 
         // When & Then
@@ -161,7 +161,7 @@ class DummyJsonClientTest {
         // Given - Use doAnswer to throw a checked exception
         doAnswer(invocation -> {
             throw new Exception("Generic checked exception");
-        }).when(restTemplate).getForObject("https://dummyjson.com/users?limit=250", DummyJsonResponse.class);
+        }).when(restTemplate).getForObject("https://dummyjson.com/users?limit=100", DummyJsonResponse.class);
 
         // When & Then
         RuntimeException exception = assertThrows(RuntimeException.class,
